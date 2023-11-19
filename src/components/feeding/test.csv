@@ -1,0 +1,5 @@
+StintID,Stint_Type,Island,Species,Prey_Size_Method,Prey_Size_Reference,FirstName,LastName,Observer_Location,Date_Time_Start,Date_Time_End,Stint_Comment,FeedingID,Nest,Time_Arrive,Time_Depart,Provider,Recipient,Prey_Item,Prey_Size,Number_of_Items,Plot_Status,Feeding_Comment
+figi-ARTE-9/13/2023-11:36-Terrel-Verneuil,Chick Provisioning,figi,ARTE,Numeric,Culmen length,Terrel,Verneuil,figi,9/13/2023 11:36,9/13/2023 11:57,,1,P2,11:36,11:37,U,B,R,1.75,1,Outside Plot,
+figi-ARTE-9/13/2023-11:36-Terrel-Verneuil,Chick Provisioning,figi,ARTE,Numeric,Culmen length,Terrel,Verneuil,figi,9/13/2023 11:36,9/13/2023 11:57,,2,P3,11:36,11:37,S,B,R,1.5,1,Outside Plot,
+figi-ARTE-9/13/2023-11:36-Terrel-Verneuil,Chick Provisioning,figi,ARTE,Numeric,Culmen length,Terrel,Verneuil,figi,9/13/2023 11:36,9/13/2023 11:57,,3,P3,11:56,11:56,BA,B,S,0.75,1,Inside Plot,
+figi-ARTE-9/13/2023-11:36-Terrel-Verneuil,Chick Provisioning,figi,ARTE,Numeric,Culmen length,Terrel,Verneuil,figi,9/13/2023 11:36,9/13/2023 11:57,,4,P2,11:57,11:57,UA,A1,UF,1.75,1,Outside Plot,
