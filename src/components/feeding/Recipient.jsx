@@ -5,9 +5,10 @@ import StintData from '../StintData';
 import FeedingData from '../FeedingData';
 
 function Recipient({file, setRecipient, data }) {
-  const upperValues = [" "];//file;
+  const [upperValues, setupperValues] = useState([]);
   //["A", "A1", "B", "UC", "U", "K", "O", "S", "M", "Y"];
-  const dropdownValues = [" "];
+  const upperLimit = 10;
+  const [dropdownValues,setDropdownValues] = useState([]);
   //["C", "N", "R", "T", "UA"];
   const [recip,setRecip] = useState(upperValues);
  
@@ -19,59 +20,61 @@ function Recipient({file, setRecipient, data }) {
   },{});
   const [dict,setDict] = useState(initialdict);
   
-  
+
+  //it is instead using a format
+  // const testarry = ["1","2","3","4","4"];
+  // const testarry2= ["1","3","4","5","6"];
+  //4 should be top
+  //then 3
+  //or 1
+  //then 5
+  // or 2
+  // or 6
+  // const combined = [...testarry, ...testarry2];
   //on save file it should read it.
   //then update button order
   //dict["1"] = (dict["1"] || 0) + 1;
-  dict["1"] += 1;
+  
+
+
+  
   useEffect(() => {
     const readCsvAndUpdateDict = () => {
-      // Replace this with the actual path to your CSV or use a file input
-      //const files = file; 
-      // fetch(file)
-      //   .then(response => response.text())
-      //   .then(csvText => {
-        
-        if(file==null){
+        if(!file){
           return;
-        }else{
-          Papa.parse(file, {
-            header: false, //no header because arr
-            complete: () => {
-            const newDict = { ...dict };
-            // for(let i = 0;
-             if (  newDict.hasOwnProperty("1")) {
-              //newDict["1"] += 1;
-            }
-              //iterate through the rows
-              // if ("1" && newDict.hasOwnProperty()) {
-              //   newDict["1"] += 1;
-              // }
-              //results.data.forEach(row => {
-              //   //instead it should iterate through the array file
-                 
-              //   // const item = row['Recipient'];
-                 
-              // });
-               const entries = Object.entries(newDict).filter(([key,])=> upperValues.includes(key));
-               entries.sort((a, b) => b[1] - a[1]);
-               const sortedDict = Object.fromEntries(entries);
-               setDict(sortedDict);
-           // }
-          
-        }
-      });
-    }
-          readCsvAndUpdateDict();
-  }}, []);
+        } else{
+        const newDict = {...dict};
+
+            //iterate through the rows
+          file.forEach(element => {
+            newDict[element] = (newDict[element] || 0)+1;
+            });
+            const entries = Object.entries(newDict);
+            entries.sort((a, b) => b[1] - a[1]);
+            const sortedDict = Object.fromEntries(entries);
+            setDict(sortedDict);
+          }
+      };
+  readCsvAndUpdateDict();
+}, [file]);
 
 
   useEffect(() => {
+    
     const providersWithCounts = Object.keys(dict).filter(key => dict[key] > 0);
   providersWithCounts.sort((a, b) => dict[b] - dict[a]);
   const providersWithoutCounts = upperValues.filter(key => !providersWithCounts.includes(key));
-  setRecip([...providersWithCounts, ...providersWithoutCounts]);
+  const sortedKeys = Object.keys(dict);
+  
+  providersWithCounts.sort((a, b) => dict[b] - dict[a]);
+  
+  
+  setRecip(providersWithCounts.slice(0,upperLimit));
+  
+  setDropdownValues(sortedKeys.slice(upperLimit));
   }, [dict]);
+
+
   //const sortedAsc = [...dict].sort((a,b)=>a.id-b.id);
   //sort the dictionary
   //const maxKey = Object.keys(dict).reduce((a, b) => dict[a] > dict[b] ? a : b);
@@ -87,9 +90,9 @@ function Recipient({file, setRecipient, data }) {
     <div className="recipient">
       <p>Recipient: {data}</p>
       <p>{StintData.file}</p>
-      <ul>{Object.entries(dict).map(([key,value])=>(
+      {/* <ul>{Object.entries(dict).map(([key,value])=>(
                 <li key={key}>{key}:{value}</li>
-            ))}</ul>
+            ))}</ul> */}
       <div className="recipient-bt">
         {recip.map((item, index) => (
           <Button key={index} value={item} handleData={setRecipient} selected={data === item} />
